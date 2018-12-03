@@ -21,7 +21,7 @@ CREATE TABLE rooms(
 	id INT AUTO_INCREMENT,
 	room_name VARCHAR(30),
 	url VARCHAR(255),
-	PRIMARY KEY(room_id)
+	PRIMARY KEY(id)
 );
 
 CREATE TABLE room_tracks(

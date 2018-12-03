@@ -43,12 +43,12 @@
 		$('#user').keyup(function(event) {
 			$('#error').html("");
 			if(event.keyCode === 13 && $(this).val().length != 0) {
-				$('#create').click();
+				$('#login').click();
 			}
 		});
 		$('#pass').keyup(function(event) {
 			if(event.keyCode === 13 && $(this).val().length != 0) {
-				$('#create').click();
+				$('#login').click();
 			}
 		});
 		$('#login').click(function() {

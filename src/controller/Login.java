@@ -87,12 +87,14 @@ public class Login extends HttpServlet {
 				
 				response.sendRedirect("Lounge");
 			}
+			else {
+				String error = "We could not find your account with given username/password";
+				request.setAttribute("error",error);
+				request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request,response);
+			}
 		}
 		else {
-			String error = "We could not find your account with given username/password";
-			request.setAttribute("error",error);
 			request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request,response);
 		}
 	}
-
 }
