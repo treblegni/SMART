@@ -21,53 +21,58 @@ import model.User;
 
 @WebServlet("/Login")
 public class Login extends HttpServlet {
-
 	private static final long serialVersionUID = 1L;
 	private HashMap<String,User> users;
-
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		users = new HashMap<>();
 		
-		Connection c = null;
-        try {
-        	String url = "jdbc:mysql://localhost:3306/smart_database";
-        	String username = "root";
-            String password = "password";
+		String currentUser = (String) request.getSession().getAttribute("currentUser");
+		
+		if (currentUser != null) {
+			response.sendRedirect("Lounge");
+		}
+		else {
+			Connection c = null;
+	        try {
+	        	String url = "jdbc:mysql://localhost:3306/smart_database";
+	        	String username = "root";
+	            String password = "password";
 
-            c = DriverManager.getConnection( url, username, password );
-			
-            Statement stmt = c.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM users");
-            
-            while (rs.next()) {
-            	//not used yet
-            	int id = rs.getInt("id");
-            	String user = rs.getString("username");
-            	String pass = rs.getString("password");
-            	int age = rs.getInt("age");
-            	
-            	users.put(user,new User(user,pass,age));
-            }
-            
-            c.close();
-        }
-        catch( SQLException e )
-        {
-            throw new ServletException( e );
-        }
-        finally
-        {
-            try
-            {
-                if( c != null ) c.close();
-            }
-            catch( SQLException e )
-            {
-                throw new ServletException( e );
-            }
-        }
-		request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request,response);
+	            c = DriverManager.getConnection( url, username, password );
+				
+	            Statement stmt = c.createStatement();
+	            ResultSet rs = stmt.executeQuery("SELECT * FROM users");
+	            
+	            while (rs.next()) {
+	            	String user = rs.getString("username");
+	            	String pass = rs.getString("password");
+	            	int age = rs.getInt("age");
+	            	Boolean host = rs.getBoolean("host");
+	            	
+	            	users.put(user,new User(user,pass,age,host));
+	            }
+	            
+	            c.close();
+	        }
+	        catch( SQLException e )
+	        {
+	            throw new ServletException( e );
+	        }
+	        finally
+	        {
+	            try
+	            {
+	                if( c != null ) c.close();
+	            }
+	            catch( SQLException e )
+	            {
+	                throw new ServletException( e );
+	            }
+	        }
+	        request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request,response);
+		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -75,12 +80,18 @@ public class Login extends HttpServlet {
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		
-		if (users.containsKey(username) && users.get(username).isValid(password)) {
-			request.getSession().setAttribute("username",username);
-			response.sendRedirect("./index.html");
+		if (username != null) {
+			if (users.containsKey(username.toLowerCase()) && users.get(username).isPassword(password)) {
+				request.getSession().setAttribute("currentUser",username);
+				request.getSession().setAttribute("isHost",false);
+				
+				response.sendRedirect("Lounge");
+			}
 		}
 		else {
-			response.sendRedirect("Login");
+			String error = "We could not find your account with given username/password";
+			request.setAttribute("error",error);
+			request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request,response);
 		}
 	}
 

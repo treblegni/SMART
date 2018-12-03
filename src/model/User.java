@@ -16,16 +16,25 @@ public class User {
 	// In addition, each user must enter their current age to verify that they
 	// are old enough to use SMART.
 	private int age = 0;
+	
+	private boolean host = false;
 
-	public User(String username, String password, int age) {
-
+	public User(String username, String password, int age, boolean host) {
 		this.username = username;
 		this.password = password;
 		this.age = age;
+		this.setHost(host);
 	}
 	
-	public boolean isValid(String password) {
-		if (this.password.equals(password)) {
+	public boolean isUsername(String username) {
+		if (this.username.equals(this.username)) {
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean isPassword(String password) {
+		if (this.password.equals(this.password)) {
 			return true;
 		}
 		return false;
@@ -53,6 +62,14 @@ public class User {
 
 	public void setAge(int age) {
 		this.age = age;
+	}
+
+	public boolean isHost() {
+		return host;
+	}
+
+	public void setHost(boolean host) {
+		this.host = host;
 	}
 
 }
