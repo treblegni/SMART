@@ -28,7 +28,7 @@
 			<span id="usererror" style="color: red"></span>
 			<br><br>
 			<label for="password">Password</label><br>
-			<input id="pass" type="text" name="password">
+			<input id="pass" type="password" name="password">
 			<br>
 			<span id="passerror" style="color: red"></span>
 			<br><br>

@@ -21,19 +21,24 @@
 		</c:if>
 		<!--Prompt the user to enter a username and password of their choice as well as their current age. All usernames must be unique.-->
 		<form id="create-form" action="CreateAccount" method="post">
-			<label for="createusername">Create Username</label>
+			<label for="user">Create Username</label>
 			<br>
 			<input id="user" type="text" name="username">
 			<br>
 			<span id="usererror" style="color: red"></span>
 			<br>
+			<label for="pass">Create Password</label>
 			<br>
-			<label for="createpassword">Create Password</label>
-			<br>
-			<input id="pass" type="text" name="password">
+			<input id="pass" type="password" name="password">
 			<br>
 			<span id="passerror" style="color: red"></span>
-			<br><br>
+			<br>
+			<label for="pass-confirm">Confirm Password</label>
+			<br>
+			<input id="pass-confirm" type="password">
+			<br>
+			<span id="passerror2" style="color: red"></span>
+			<br>
 			<label for="age">Age</label>
 			<br>
 			<input id="age" type="text" name="age">
@@ -44,7 +49,6 @@
 			<button id="create" class="btn btn-primary" type="button">Create Account</button>
 		</form>
 		<br>
-		<br>
 		<a class="btn btn-primary" href="UserValidation">Return</a>
 	</div>
 	
@@ -52,23 +56,40 @@
 	<script>
 		$('#user').keyup(function(event) {
 			$('#error').html("");
+			$('#usererror').html("");
 			if(event.keyCode === 13 && $(this).val().length != 0) {
 				$('#create').click();
 			}
 		});
 		$('#pass').keyup(function(event) {
+			$('#error').html("");
+			$('#passerror').html("");
+			if(event.keyCode === 13 && $(this).val().length != 0) {
+				$('#create').click();
+			}
+		});
+		$('#pass-confirm').keyup(function(event) {
+			$('#error').html("");
+			$('#passerror2').html("");
 			if(event.keyCode === 13 && $(this).val().length != 0) {
 				$('#create').click();
 			}
 		});
 		$('#age').keyup(function(event) {
+			$('#error').html("");
+			$('#ageerror').html("");
 			if(event.keyCode === 13 && $(this).val().length != 0) {
 				$('#create').click();
 			}
 		});
 		$('#create').click(function() {
-			if ($('#user').val().length != 0 && $('#pass').val().length != 0 && $('#age').val().length != 0) {
-				$('#create-form').submit();
+			if ($('#user').val().length != 0 && $('#pass').val().length != 0 && $('#age').val().length != 0 && $('#pass-confirm').val().length != 0) {
+				if ($('#pass-confirm').val() == $('#pass').val()) {
+					$('#create-form').submit();
+				}
+				else {
+					$('#passerror2').html("Passwords do not match");
+				}
 			}
 			else {
 				if ($('#user').val().length == 0) {
@@ -82,6 +103,12 @@
 				}
 				else {
 					$('#passerror').html("");
+				}
+				if ($('#pass-confirm').val().length == 0) {
+					$('#passerror2').html("Required");
+				}
+				else {
+					$('#passerror2').html("");
 				}
 				if ($('#age').val().length == 0) {
 					$('#ageerror').html("Required");
