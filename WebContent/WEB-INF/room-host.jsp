@@ -35,6 +35,9 @@
 				<audio id="player" controls></audio>
 			</div>
 		</div>
+		<div>
+			<button id="join-chat" type="button">Join Chat</button>
+		</div>
 		<div class="container" style="margin-top: 10px;text-align:center">
 			<br><br>
 			<a class="btn btn-primary" href="Lounge">End Session</a>
@@ -70,6 +73,10 @@
 					});
 				});
 			}
+			
+			$('#join-chat').click(function() {
+				window.open("http://localhost:3000","_blank");
+			});
 		</script>
 	</body>
 </html>
