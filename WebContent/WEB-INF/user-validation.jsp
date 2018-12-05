@@ -8,14 +8,13 @@
 	<title>Login/Sign Up</title>
 </head>
 <body>
-	<div class="container" style="margin-top: 10px;text-align:center">
+	<div class="container" style="margin-top: 20px;text-align:center">
 		<!--If user is registered, they can choose to login.-->
 		<div>
 			<p>If you are already registered, please login.</p>
 			<a href="Login">
 				<button type="button" class="btn btn-primary">Login</button>
 			</a>
-			
 		</div>
 		<br>
 		<!--If user is not registered, they may create a new account-->

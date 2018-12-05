@@ -14,19 +14,26 @@
 		<title>Join A Room</title>
 	</head>
 	<body>
-		<div style="margin-top:10px;text-align:center">
+		<div style="margin-top:20px;text-align:center">
 			<h1 class="text text-primary">Join A Room</h1>
 		</div>
 		<div class="container" style="margin-top: 10px;text-align:center">
 			<span>Rooms:</span>
 			<br>
-			<form action="RoomGuest" method="GET">
-				<select name="selected" style="width:500px">
+			<form id="join-form" action="RoomGuest" method="GET">
+				<select id="room-selected" name="selected" style="width:500px">
 					<c:forEach items="${rooms}" var="room">
-						<option value="${track.getName()},${track.getArtist()},${track.getId()}">${track.getName()} by ${track.getArtist()}</option>
+						<c:choose>
+							<c:when test="${loop.index == 0}">
+								<option selected="selected" value="${room.getRoomHost()}">${room.getRoomName()} Hosted by ${room.getRoomHost()}</option>
+							</c:when>
+							<c:otherwise>
+								<option value="${room.getRoomHost()}">${room.getRoomName()} hosted by ${room.getRoomHost()}</option>
+							</c:otherwise>
+						</c:choose>
 					</c:forEach>
 				</select>
-				<button id="joinRoom" style="height:28px">Join</button>
+				<button id="join-room" style="height:28px" type="button">Join</button>
 			</form>
 			<br>
 		</div>
@@ -39,64 +46,13 @@
 		<!-- scripts -->
 		<script src="./js/jquery-3.3.1.js"></script>
 		<script>
-			const API_KEY = 'ZGRmNTkxNTYtY2NmZC00OTVjLWE2YTMtYmMwYWQzODI5YmY1';
+			$('#join-room').click(function() {
+				var room = $('#room-selected option:selected').text();
+				console.log(room)
 			
-			$('#request').keyup(function(event) {
-				if(event.keyCode === 13) {
-					$('#search').click();
+				if (room != null && room.length != 0) {
+					$('#join-form').submit();
 				}
-			});
-
-			$('#search').click(function() {
-				var track = $('#request').val();
-
-				$.getJSON('https://api.napster.com/v2.2/search?apikey=' + API_KEY + '&query=' + track + '&type=track&per_type_limit=10', function(query) {
-					var tracks = query.search.data.tracks;
-					var trackNames = [];
-					var trackArtists = [];
-					var trackIds = [];
-
-					for (var i = 0 ; i < tracks.length ; i++) {
-						trackNames.push(tracks[i].name);
-						trackArtists.push(tracks[i].artistName);
-						trackIds.push(tracks[i].id);
-					}
-					
-					$.ajax({
-					    url:"CreateRoom",
-					    type:"GET",
-					    dataType: 'json',
-				        data: {
-				        	trackNames: trackNames,
-				        	trackArtists: trackArtists,
-				        	trackIds: trackIds
-				        }
-					});
-					window.location.reload();
-				});
-			});
-			
-			$('#start-room').click(function() {
-				var trackNames = [];
-				var trackIds = [];
-				
-				$('#playlist li').each(function() {
-					var name = $(this).text();
-					var id = $(this).attr('id');
-					trackNames.push(name);
-					trackIds.push(id);
-				});
-				
-				$.ajax({
-				    url:"RoomHost",
-				    type:"GET",
-				    dataType: 'json',
-			        data: {
-			        	trackNames: trackNames,
-			        	trackIds: trackIds
-			        }
-				});
-				$('#playlist-form').submit();
 			});
 		</script>
 	</body>

@@ -18,14 +18,16 @@ CREATE TABLE users(
 );
 
 CREATE TABLE rooms(
-	id INT AUTO_INCREMENT,
+	room_id INT AUTO_INCREMENT,
 	room_name VARCHAR(30),
-	url VARCHAR(255),
-	PRIMARY KEY(id)
+	room_host VARCHAR(255),
+	PRIMARY KEY(room_id)
 );
 
 CREATE TABLE room_tracks(
 	track_id VARCHAR(30),
-	room_id INT NOT NULL,
+	track_name VARCHAR(255),
+	track_artist VARCHAR(255),
+	room_host VARCHAR(30) NOT NULL,
 	PRIMARY KEY(track_id)
 );

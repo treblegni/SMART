@@ -10,23 +10,24 @@
 		<title>Room</title>
 	</head>
 	<body>
-		<div class="container" style="margin-top: 10px;text-align:center">
+		<div class="container" style="margin-top: 20px;text-align:center">
 			<h1 class="text text-primary">This is the Room</h1>
 		<div>
 		<div class="container" style="margin-top: 10px;text-align:center">
 			<span></span>		
-			<select id="tracks">
-			<c:forEach items="${playlist.keySet()}" var="key" varStatus="loop">
+			<select id="tracks" style="width:500px">
+			<c:forEach items="${playlist}" var="track" varStatus="loop">
 				<c:choose>
 					<c:when test="${loop.index == 0}">
-						<option selected="selected" value="${playlist.get(key)}">${key}</option>
+						<option selected="selected" value="${track.getId()}">${track.getName()} by ${track.getArtist()}</option>
 					</c:when>
 					<c:otherwise>
-						<option value="${playlist.get(key)}">${key}</option>
+						<option value="${track.getId()}">${track.getName()} by ${track.getArtist()}</option>
 					</c:otherwise>
 				</c:choose>
 			</c:forEach>
 			</select>
+			<br>
 			<br>
 			<div>
 				<div id="image"></div>

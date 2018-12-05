@@ -15,7 +15,7 @@
 		<title>Create Room</title>
 	</head>
 	<body>
-		<div style="margin-top:10px;text-align:center">
+		<div style="margin-top:20px;text-align:center">
 			<h1 class="text text-primary">Track Search</h1>
 		</div>
 		<div class="container" style="margin-top: 10px;text-align:center">
@@ -26,9 +26,9 @@
 					<img src="./img/search-icon.svg" style="margin-bottom:8px"height="20" width="20">
 				</button>
 			</div>
-			
-			<form action="CreateRoom" method="GET">
-				<select name="selected" style="width:500px">
+			<br>
+			<form action="CreateRoom" method="POST">
+				<select id="tracks" name="selected" style="width:500px">
 					<c:forEach items="${userTrackCache}" var="track">
 						<option value="${track.getName()},${track.getArtist()},${track.getId()}">${track.getName()} by ${track.getArtist()}</option>
 					</c:forEach>
@@ -37,11 +37,14 @@
 			</form>
 			<br>
 			<form id="playlist-form" action="RoomHost" method="GET">
-				<ul id="playlist">
-				<c:forEach items="${userTracks.keySet()}" var="key">
-					<li id="${userTracks.get(key).getId()}">${userTracks.get(key).getName()} by ${userTracks.get(key).getArtist()}</li>
-				</c:forEach>
-				</ul>
+				<div style="text-align:left">
+					<ol id="playlist">
+					<c:forEach items="${playlist}" var="track">
+						<li id="${track.getId()}">${track.getName()} by ${track.getArtist()}</li>
+					</c:forEach>
+					</ol>
+				</div>
+				
 				<button id="start-room" type="button">Start Room</button>
 			</form>
 		</div>
@@ -50,7 +53,6 @@
 			<br><br>
 			<a class="btn btn-primary" href="Lounge">Return</a>
 		</div>
-		<div id="test"></div>
 		
 		<!-- scripts -->
 		<script src="./js/jquery-3.3.1.js"></script>
@@ -68,51 +70,25 @@
 
 				$.getJSON('https://api.napster.com/v2.2/search?apikey=' + API_KEY + '&query=' + track + '&type=track&per_type_limit=10', function(query) {
 					var tracks = query.search.data.tracks;
-					var trackNames = [];
-					var trackArtists = [];
-					var trackIds = [];
-
+					var options = '';
+					
 					for (var i = 0 ; i < tracks.length ; i++) {
-						trackNames.push(tracks[i].name);
-						trackArtists.push(tracks[i].artistName);
-						trackIds.push(tracks[i].id);
+						options += '<option value="' +
+								tracks[i].name + ',' +
+								tracks[i].artistName + ',' +
+								tracks[i].id + '">' +
+								tracks[i].name + ' by ' +
+								tracks[i].artistName + '</option>';
 					}
 					
-					$.ajax({
-					    url:"CreateRoom",
-					    type:"GET",
-					    dataType: 'json',
-				        data: {
-				        	trackNames: trackNames,
-				        	trackArtists: trackArtists,
-				        	trackIds: trackIds
-				        }
-					});
-					window.location.reload();
+					$('#tracks').html(options);
 				});
 			});
 			
 			$('#start-room').click(function() {
-				var trackNames = [];
-				var trackIds = [];
-				
-				$('#playlist li').each(function() {
-					var name = $(this).text();
-					var id = $(this).attr('id');
-					trackNames.push(name);
-					trackIds.push(id);
-				});
-				
-				$.ajax({
-				    url:"RoomHost",
-				    type:"GET",
-				    dataType: 'json',
-			        data: {
-			        	trackNames: trackNames,
-			        	trackIds: trackIds
-			        }
-				});
-				$('#playlist-form').submit();
+				if ($('#playlist li').length > 0) {
+					$('#playlist-form').submit();
+				}
 			});
 		</script>
 	</body>

@@ -15,7 +15,7 @@
 	<div style="margin-top: 10px;text-align:center">
 		<h1 class="text text-primary">Create a New Account</h1>
 	</div>
-	<div class="container" style="margin-top: 10px;text-align:center">
+	<div class="container" style="margin-top: 20px;text-align:center">
 		<c:if test="${error != null}">
 			<span id="error" style="color:red">${error}</span>
 		</c:if>

@@ -16,7 +16,7 @@
 	<div style="margin-top: 10px;text-align:center">
 		<h1 class="text text-primary">Login</h1>
 	</div>
-	<div class="container" style="margin-top: 10px;text-align:center">
+	<div class="container" style="margin-top: 20px;text-align:center">
 		<c:if test="${error != null}">
 			<span id="error" style="color:red">${error}</span>
 		</c:if>
@@ -26,15 +26,16 @@
 			<input id="user" type="text" name="username">
 			<br>
 			<span id="usererror" style="color: red"></span>
-			<br><br>
+			<br>
 			<label for="password">Password</label><br>
 			<input id="pass" type="password" name="password">
 			<br>
 			<span id="passerror" style="color: red"></span>
-			<br><br>
+			<br>
+			<br>
 			<button id="login" class="btn btn-primary" type="button">Login</button>
 		</form>
-		<br><br>
+		<br>
 		<a class="btn btn-primary" href="UserValidation">Return</a>
 	</div>
 	
