@@ -84,8 +84,10 @@ public class RoomGuest extends HttpServlet {
 		            }
 		        }
 			}
-			
-			request.getRequestDispatcher("/WEB-INF/room-guest.jsp").forward(request,response);
+			if (!playlist.isEmpty()) {
+				request.getRequestDispatcher("/WEB-INF/room-guest.jsp").forward(request,response);
+	        }
+	        response.sendRedirect("Lounge");
 		}
 		else {
 			response.sendRedirect("Login");

@@ -68,6 +68,7 @@ public class RoomHost extends HttpServlet {
 	            	playlist.add(new Track(name,artist,id));
 	            }
 	            c.close();
+	            
 	            request.setAttribute("playlist",playlist);
 	        }
 	        catch( SQLException e )
@@ -85,7 +86,10 @@ public class RoomHost extends HttpServlet {
 	                throw new ServletException( e );
 	            }
 	        }
-			request.getRequestDispatcher("/WEB-INF/room-host.jsp").forward(request,response);
+	        if (!playlist.isEmpty()) {
+	        	request.getRequestDispatcher("/WEB-INF/room-host.jsp").forward(request,response);
+	        }
+	        response.sendRedirect("Lounge");
 		}
 		else {
 			response.sendRedirect("Login");

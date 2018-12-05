@@ -1,11 +1,12 @@
 DROP DATABASE IF EXISTS smart_database;
 
-CREATE DATABASE smart_database;
+CREATE DATABASE cs3220stu52;
 
 USE smart_database;
 
 DROP TABLE IF EXISTS users;
-DROP TABLE IF EXISTS user_tracks;
+DROP TABLE IF EXISTS rooms;
+DROP TABLE IF EXISTS room_tracks;
 
 
 CREATE TABLE users(
