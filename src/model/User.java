@@ -27,14 +27,14 @@ public class User {
 	}
 	
 	public boolean isUsername(String username) {
-		if (this.username.equals(this.username)) {
+		if (username.equals(this.username)) {
 			return true;
 		}
 		return false;
 	}
 	
 	public boolean isPassword(String password) {
-		if (this.password.equals(this.password)) {
+		if (password.equals(this.password)) {
 			return true;
 		}
 		return false;

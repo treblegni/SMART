@@ -1,6 +1,6 @@
 DROP DATABASE IF EXISTS smart_database;
 
-CREATE DATABASE cs3220stu52;
+CREATE DATABASE smart_database;
 
 USE smart_database;
 

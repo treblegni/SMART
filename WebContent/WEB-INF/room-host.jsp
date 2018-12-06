@@ -75,7 +75,7 @@
 			}
 			
 			$('#join-chat').click(function() {
-				window.open("http://localhost:3000","_blank");
+				window.open("Chat","_blank");
 			});
 		</script>
 	</body>

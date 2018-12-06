@@ -43,6 +43,10 @@ public class CreateAccount extends HttpServlet {
 		String newPassword = request.getParameter("password");
 		String newAge = request.getParameter("age");
 		
+		newUsername = newUsername.trim();
+		newPassword = newPassword.trim();
+		newAge = newAge.trim();
+		
 		HashMap<String,User> users = new HashMap<>();
 		
 		Connection c = null;
@@ -62,6 +66,7 @@ public class CreateAccount extends HttpServlet {
             	String pass = rs.getString("password");
             	int age = rs.getInt("age");
             	Boolean host = rs.getBoolean("host");
+            	user = user.toLowerCase();
             	
             	users.put(user,new User(user,pass,age,host));
             }
@@ -69,7 +74,7 @@ public class CreateAccount extends HttpServlet {
             if (!users.containsKey(newUsername.toLowerCase())) {
             	String stmtQuery = "INSERT INTO users VALUES(NULL,?,?,?,false);";
 	            PreparedStatement pstmt = c.prepareStatement(stmtQuery);
-	            pstmt.setString(1,newUsername);
+	            pstmt.setString(1,newUsername.toLowerCase());
 	            pstmt.setString(2,newPassword);
 	            pstmt.setInt(3,Integer.parseInt(newAge));
 	            pstmt.executeUpdate();

@@ -50,10 +50,10 @@ public class Login extends HttpServlet {
 	            	String pass = rs.getString("password");
 	            	int age = rs.getInt("age");
 	            	Boolean host = rs.getBoolean("host");
+	            	user = user.toLowerCase();
 	            	
 	            	users.put(user,new User(user,pass,age,host));
 	            }
-	            
 	            c.close();
 	        }
 	        catch( SQLException e )
@@ -80,10 +80,12 @@ public class Login extends HttpServlet {
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		
+		username = username.trim();
+		password = password.trim();
+		
 		if (username != null) {
-			if (users.containsKey(username.toLowerCase()) && users.get(username).isPassword(password)) {
-				request.getSession().setAttribute("currentUser",username);
-				request.getSession().setAttribute("isHost",false);
+			if (users.get(username.toLowerCase()).isPassword(password) && users.containsKey(username.toLowerCase())) {
+				request.getSession().setAttribute("currentUser",username.toLowerCase());
 				
 				response.sendRedirect("Lounge");
 			}
