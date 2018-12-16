@@ -86,10 +86,10 @@ public class RoomHost extends HttpServlet {
 	                throw new ServletException( e );
 	            }
 	        }
-	        if (!playlist.isEmpty()) {
-	        	request.getRequestDispatcher("/WEB-INF/room-host.jsp").forward(request,response);
-	        }
-	        response.sendRedirect("Lounge");
+	        if (playlist.isEmpty()) {
+				response.sendRedirect("Lounge");
+			}
+			request.getRequestDispatcher("/WEB-INF/room-guest.jsp").forward(request,response);
 		}
 		else {
 			response.sendRedirect("Login");

@@ -30,7 +30,7 @@ public class Chat extends HttpServlet {
 		String currentUser = (String) request.getSession().getAttribute("currentUser");
 		
 		request.setAttribute("user",currentUser);
-		request.getRequestDispatcher("./chatbox/index.jsp").forward(request,response);
+		response.sendRedirect("./chatbox/index.html");
 	}
 
 	/**

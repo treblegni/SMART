@@ -35,6 +35,9 @@
 				<audio id="player" controls></audio>
 			</div>
 		</div>
+		<div>
+			<a id="join-chat" href="localhost:3000" type="button" target="_blank">Join Chat</a>
+		</div>
 		<div class="container" style="margin-top: 10px;text-align:center">
 			<br><br>
 			<a class="btn btn-primary" href="Lounge">Back To Lounge</a>

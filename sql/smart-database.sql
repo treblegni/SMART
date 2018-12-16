@@ -29,6 +29,5 @@ CREATE TABLE room_tracks(
 	track_id VARCHAR(30),
 	track_name VARCHAR(255),
 	track_artist VARCHAR(255),
-	room_host VARCHAR(30) NOT NULL,
-	PRIMARY KEY(track_id)
+	room_host VARCHAR(30) NOT NULL
 );

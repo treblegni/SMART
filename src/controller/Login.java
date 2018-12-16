@@ -84,7 +84,7 @@ public class Login extends HttpServlet {
 		password = password.trim();
 		
 		if (username != null) {
-			if (users.get(username.toLowerCase()).isPassword(password) && users.containsKey(username.toLowerCase())) {
+			if (users.containsKey(username.toLowerCase()) && users.get(username.toLowerCase()).isPassword(password)) {
 				request.getSession().setAttribute("currentUser",username.toLowerCase());
 				
 				response.sendRedirect("Lounge");

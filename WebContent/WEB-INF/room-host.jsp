@@ -36,7 +36,7 @@
 			</div>
 		</div>
 		<div>
-			<button id="join-chat" type="button">Join Chat</button>
+			<a id="join-chat" href="localhost:3000" type="button" target="_blank">Join Chat</a>
 		</div>
 		<div class="container" style="margin-top: 10px;text-align:center">
 			<br><br>
@@ -75,7 +75,7 @@
 			}
 			
 			$('#join-chat').click(function() {
-				window.open("Chat","_blank");
+				window.open("localhost:3000","_blank");
 			});
 		</script>
 	</body>

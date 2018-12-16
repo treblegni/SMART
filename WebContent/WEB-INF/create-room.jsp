@@ -36,6 +36,7 @@
 				<button id="addSong" style="height:28px">Add</button>
 			</form>
 			<br>
+			<span>Playlist</span>
 			<form id="playlist-form" action="RoomHost" method="GET">
 				<div style="text-align:left">
 					<ol id="playlist">
